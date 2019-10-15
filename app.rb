@@ -7,7 +7,7 @@ class App < Sinatra::Base
   end
 
   before do
-    content_type :txt
+    content_type :txt /
   end
 
   get '/' do
