@@ -2,9 +2,9 @@ require_relative 'config/environment'
 
 class App < Sinatra::Base
   configure do
-    enable :sessions unless test?
+    enable :sessions unless test?           #This enables our application to use the sessions keyword to access the session hash
     set :session_secret, "secret"
-  end
+  #end
 
   before do
     content_type :txt
