@@ -12,6 +12,13 @@ class App < Sinatra::Base
 
   get '/' do
     "Welcome to Sinatra Sessions! In this lab, we will be learning about the general principles behind a sessions cookie. In order to proceed, let's go to the '/first_exercise' path."
+    erb :index
+  end
+
+  post '/checkout' do
+    @item = params[:item]
+    session["item"] = @item
+    erb :item
   end
 
   get '/first_exercise' do
@@ -20,6 +27,7 @@ class App < Sinatra::Base
 
   get '/set' do
     # set the :foo key of the session hash equal to 'hello' here!
+    session[:foo] = 'hello'
     if session[:foo] == 'hello'
       redirect '/fetch'
     else
@@ -37,7 +45,7 @@ class App < Sinatra::Base
 
   get '/set_session' do
     #set session id here
-
+    session[:id] = 1
     if session[:id] == 1
       # "Session ID set. It's currently set to #{session[:id]}."
       redirect '/fetch_session_id'
@@ -52,6 +60,7 @@ class App < Sinatra::Base
 
   get '/logout' do
     #clear session hash here
+    session.inspect = nil
     "Session has now been cleared. session content: #{session.inspect}. Continue on to the '/finish' line!"
   end
 
