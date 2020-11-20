@@ -6,6 +6,9 @@ class App < Sinatra::Base
     set :session_secret, "secret"
   end
 
+  #Set the session start in the configure block
+  #Also secret is a terrible password
+
   before do
     content_type :txt
   end
@@ -20,6 +23,7 @@ class App < Sinatra::Base
 
   get '/set' do
     # set the :foo key of the session hash equal to 'hello' here!
+    session[:foo] = "hello"
     if session[:foo] == 'hello'
       redirect '/fetch'
     else
@@ -36,7 +40,7 @@ class App < Sinatra::Base
   end
 
   get '/set_session' do
-    #set session id here
+    session[:id] = 1
 
     if session[:id] == 1
       # "Session ID set. It's currently set to #{session[:id]}."
@@ -51,6 +55,7 @@ class App < Sinatra::Base
   end
 
   get '/logout' do
+    session.clear
     #clear session hash here
     "Session has now been cleared. session content: #{session.inspect}. Continue on to the '/finish' line!"
   end
