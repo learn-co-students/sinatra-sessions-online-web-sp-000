@@ -1,9 +1,9 @@
 require_relative 'config/environment'
 
 class App < Sinatra::Base
-  configure do
+  configure do # these lines are enabling our application to use the sessions keyword to access the session hash
     enable :sessions unless test?
-    set :session_secret, "secret"
+    set :session_secret, "secret" # we are also setting a session secret, keeps our session data safe from outsiders
   end
 
   before do
@@ -20,6 +20,7 @@ class App < Sinatra::Base
 
   get '/set' do
     # set the :foo key of the session hash equal to 'hello' here!
+    session[:foo] = 'hello'
     if session[:foo] == 'hello'
       redirect '/fetch'
     else
@@ -37,6 +38,7 @@ class App < Sinatra::Base
 
   get '/set_session' do
     #set session id here
+    session[:id] = 1
 
     if session[:id] == 1
       # "Session ID set. It's currently set to #{session[:id]}."
@@ -52,6 +54,7 @@ class App < Sinatra::Base
 
   get '/logout' do
     #clear session hash here
+    session.clear
     "Session has now been cleared. session content: #{session.inspect}. Continue on to the '/finish' line!"
   end
 
