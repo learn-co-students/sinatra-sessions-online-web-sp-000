@@ -20,11 +20,12 @@ class App < Sinatra::Base
 
   get '/set' do
     # set the :foo key of the session hash equal to 'hello' here!
-    if session[:foo] == 'hello'
-      redirect '/fetch'
-    else
-      "Session value has not been set!"
-    end
+    session[:foo] = "hello"
+    # if session[:foo] == 'hello'
+    #   redirect '/fetch'
+    # else
+    #   "Session value has not been set!"
+    # end
   end
 
   get '/fetch' do
@@ -37,13 +38,14 @@ class App < Sinatra::Base
 
   get '/set_session' do
     #set session id here
-
-    if session[:id] == 1
-      # "Session ID set. It's currently set to #{session[:id]}."
-      redirect '/fetch_session_id'
-    else
-      "Session ID has not been set!"
-    end
+    session[:id] = 1 
+    redirect '/fetch_session_id'
+    # if session[:id] == 1
+    #   # "Session ID set. It's currently set to #{session[:id]}."
+    #   redirect '/fetch_session_id'
+    # else
+    #   "Session ID has not been set!"
+    # end
   end
 
   get '/fetch_session_id' do
@@ -52,10 +54,11 @@ class App < Sinatra::Base
 
   get '/logout' do
     #clear session hash here
-    "Session has now been cleared. session content: #{session.inspect}. Continue on to the '/finish' line!"
+     session[:id].clear
+    # "Session has now been cleared. session content: #{session.inspect}. Continue on to the '/finish' line!"
   end
 
-  get '/finish' do
-    "Hopefully that explains a little more about the concept of sessions.\nThe session is simply a way to store user data on a temporary basis.\nIn any web application, a user ID is typically used as a session ID.\nThis is because an ID attribute of a user is a unique identifier\nthat will always be distinguishable from other user ID attributes."
-  end
+  # get '/finish' do
+  #   "Hopefully that explains a little more about the concept of sessions.\nThe session is simply a way to store user data on a temporary basis.\nIn any web application, a user ID is typically used as a session ID.\nThis is because an ID attribute of a user is a unique identifier\nthat will always be distinguishable from other user ID attributes."
+  # end
 end
